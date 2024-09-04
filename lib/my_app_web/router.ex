@@ -18,6 +18,11 @@ defmodule MyAppWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live_session :page_session,
+      on_mount: [{MyAppWeb.UserAuth, :load_expensive_session_data}] do
+      live "/page", PageLive
+    end
   end
 
   # Other scopes may use custom stacks.
